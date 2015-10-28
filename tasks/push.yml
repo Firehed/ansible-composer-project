@@ -1,0 +1,19 @@
+---
+- name: Create destination directory
+  file:
+    dest: "{{ composer_dest }}/{{ composer_release_directory }}/{{ ts }}"
+    state: directory
+    owner: "{{ composer_www_user }}"
+    group: "{{ composer_www_group }}"
+
+- name: Copy to remote machines
+  synchronize:
+    # Trailing slash here is critical! Without it, the composer.XXXX directory
+    # will be pushed out, rather than its contents.
+    src: "{{ temp.stdout }}/"
+    dest: "{{ composer_dest }}/{{ composer_release_directory }}/{{ ts }}"
+    # Don't preserve local owners; use remote set in mkdir above
+    owner: no
+    group: no
+
+

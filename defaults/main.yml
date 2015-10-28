@@ -1,0 +1,12 @@
+---
+composer_repo: ""
+composer_version: master
+composer_dest: /var/www
+
+# Code and symlinks will be deployed chown'd by these values
+composer_www_user: nginx
+composer_www_group: nginx
+
+# Typically no need to change these
+composer_release_directory: releases
+composer_live_directory: current

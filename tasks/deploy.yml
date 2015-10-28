@@ -1,0 +1,10 @@
+---
+# Looking at the source, Ansible attempts to create or replace the symlink
+# atomically. Which is nice, so we don't have to do any weird magic here.
+- name: Create symlink
+  file:
+    src: "{{ composer_dest }}/{{ composer_release_directory }}/{{ ts }}"
+    dest: "{{ composer_dest }}/{{ composer_live_directory }}"
+    state: link
+    owner: "{{ composer_www_user }}"
+    group: "{{ composer_www_group }}"

@@ -1,0 +1,43 @@
+---
+
+# Deploy to a YYYYMMDDHHIISS format
+- name: LOCAL Record release ID
+  run_once: yes
+  local_action:
+    module: set_fact
+    ts: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}"
+
+- name: Make temp directory
+  run_once: yes
+  local_action:
+    module: command mktemp -d -t composer
+  register: temp
+
+- name: Check out repo
+  run_once: yes
+  local_action:
+    module: git
+    repo: "{{ composer_repo }}"
+    dest: "{{ temp.stdout }}"
+    depth: 1
+    version: "{{ composer_version }}"
+
+- name: Install dependencies
+  run_once: yes
+  local_action:
+    module: composer
+    working_dir: "{{ temp.stdout }}"
+    command: install
+    optimize_autoloader: yes
+    no_dev: yes
+
+- name: Remove .git and tests
+  run_once: yes
+  local_action:
+    module: file
+    state: absent
+    path: "{{ temp.stdout }}/{{ item }}"
+  with_items:
+    - .git
+    - tests
+    - vendor/**/**/.git

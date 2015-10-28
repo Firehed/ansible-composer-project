@@ -1,0 +1,7 @@
+---
+- name: Remove local temp files
+  run_once: yes
+  local_action:
+    module: file
+    state: absent
+    path: "{{ temp.stdout }}"

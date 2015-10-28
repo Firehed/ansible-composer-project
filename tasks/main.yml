@@ -1,0 +1,5 @@
+---
+- include: checkout.yml
+- include: push.yml
+- include: deploy.yml
+- include: cleanup.yml
