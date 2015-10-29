@@ -1,4 +1,4 @@
-Role Name
+Composer Project Deployment
 =========
 
 Deploy a Composer project (including installing dependencies, etc) to a remote server, using a typical "symlink swap" technique. 
