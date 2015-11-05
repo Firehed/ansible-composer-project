@@ -1,4 +1,10 @@
 ---
+- name: Pre-link scripts
+  with_items: composer_pre_link_commands
+  shell: "{{ item }}"
+  args:
+    chdir: "{{ composer_dest }}/{{ composer_release_directory }}/{{ ts }}/"
+
 # Looking at the source, Ansible attempts to create or replace the symlink
 # atomically. Which is nice, so we don't have to do any weird magic here.
 - name: Create symlink

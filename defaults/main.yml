@@ -10,3 +10,5 @@ composer_www_group: nginx
 # Typically no need to change these
 composer_release_directory: releases
 composer_live_directory: current
+
+composer_pre_link_commands: []
