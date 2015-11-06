@@ -7,6 +7,11 @@
     module: set_fact
     ts: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}"
 
+- name: Check variables
+  assert:
+    that:
+      - composer_repo != ''
+
 - name: Make temp directory
   run_once: yes
   local_action:
